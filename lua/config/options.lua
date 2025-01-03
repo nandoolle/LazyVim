@@ -3,6 +3,6 @@
 -- Add any additional options here
 --
 vim.opt.scrolloff = 20
-vim.opt.guicursor = "n-v-i-c:block-Cursor"
-
+vim.opt.guicursor = "n-v-c:block-Cursor"
+vim.opt.guicursor = "i:blinkon100"
 -- vim.o.numberwidth = 50
