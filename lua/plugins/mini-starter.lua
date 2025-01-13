@@ -25,9 +25,9 @@ return {
       "  `''                                                                      ``'  ",
     }, "\n")
     local pad = string.rep(" ", 22)
-    -- local new_section = function(name, action, section)
-    --   return { name = name, action = action, section = pad .. section }
-    -- end
+    local new_section = function(name, action, section)
+      return { name = name, action = action, section = pad .. section }
+    end
     --
     local starter = require("mini.starter")
     --stylua: ignore
@@ -39,11 +39,12 @@ return {
       --   new_section("Recent files",        "Telescope oldfiles",   "Telescope"),
       --   new_section("Grep text",           "Telescope live_grep",  "Telescope"),
       --   new_section("init.lua",            "e $MYVIMRC",           "Config"),
-      --   new_section("Lazy",                "Lazy",                 "Config"),
+        -- new_section("LazyExtras",          "l",           "Extras"),
+        -- new_section("Lazy",                "Lazy",                 "Config"),
       --   new_section("-Explorer",           "ex .",                 "Oil"),
       --   new_section("Toggle Transparent",  "TransparentToggle", ":)"),
       --   new_section("New file",            "ene | startinsert",    "Built-in"),
-      --   new_section("Quit",                "qa",                   "Built-in"),
+        -- new_section("Quit",                "qa",                   "Built-in"),
       --   new_section("Session restore",     [[lua require("persistence").load()]], "Session"),
       -- },
       content_hooks = {
