@@ -1,8 +1,7 @@
 return {
-  "folke/snacks.nvim",
-  opts = {
-    dashboard = {
-      header = [[
+  "goolord/alpha-nvim",
+  opts = function(_, opts)
+    local logo = [[
              ,----------------,              ,---------,
         ,-----------------------,          ,"        ,"|
       ,"                      ,"|        ,"        ,"  |
@@ -20,7 +19,7 @@ return {
   /  oooooooooooooooo  .o.  oooo /,   \,"-----------    
  / ==ooooooooooooooo==.o.  ooo= //   ,`\--{)B     ,"    
 /_==__==========__==_ooo__ooo=_/'   /___________,"      
-        ]],
-    },
-  },
+    ]]
+    opts.section.header.val = vim.split(logo, "/n", { trimempty = true })
+  end,
 }

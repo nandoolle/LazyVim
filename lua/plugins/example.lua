@@ -10,13 +10,13 @@ if true then return {} end
 -- * override the configuration of LazyVim plugins
 return {
   -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
+  { "mistweaverco/retro-theme.nvim" },
 
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "retro-theme",
     },
   },
 
@@ -175,20 +175,6 @@ return {
       }
     end,
   },
-
-  -- {
-  --   "folke/zen-mode.nvim",
-  --   cmd = "ZenMode",
-  --   opts = {
-  --     window = { backdrop = 0.7 },
-  --     plugins = {
-  --       gitsigns = true,
-  --       tmux = true,
-  --       kitty = { enabled = false, font = "+2" },
-  --     },
-  --   },
-  --   keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
-  -- },
 
   -- use mini.starter instead of alpha
   { import = "lazyvim.plugins.extras.ui.mini-starter" },

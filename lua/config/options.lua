@@ -8,3 +8,5 @@ vim.opt.guicursor = "i:blinkon100"
 vim.g.NERDTreeShowHidden = 1
 vim.opt.colorcolumn = "81"
 vim.opt.cursorcolumn = true
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true

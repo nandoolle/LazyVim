@@ -1,6 +1,13 @@
 return {
   {
-    "folke/tokyonight.nvim",
+    "mistweaverco/retro-theme.nvim",
+    {
+      "LazyVim/LazyVim",
+      opts = {
+        colorscheme = "retro-theme",
+      },
+    },
+
     -- opts = {
     --   transparent = true,
     --   styles = {
