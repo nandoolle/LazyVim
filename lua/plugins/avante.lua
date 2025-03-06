@@ -14,6 +14,12 @@ return {
   lazy = false,
   version = false, -- set this if you want to always pull the latest change
   opts = {
+    provider = "claude", -- The provider used in Aider mode or in the planning phase of Cursor Planning Mode
+    claude = {
+      endpoint = "https://api.anthropic.com",
+      model = "claude-3-7-sonnet-20250219",
+      temperature = 0,
+    },
     -- add any opts here
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`

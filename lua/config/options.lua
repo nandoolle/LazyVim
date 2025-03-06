@@ -10,3 +10,8 @@ vim.opt.colorcolumn = "81"
 vim.opt.cursorcolumn = true
 vim.opt.spelllang = "en_us"
 vim.opt.spell = true
+
+-- Improve spell checking for coding
+vim.opt.spelloptions = "camel" -- Handle camelCase words better
+vim.opt.spellcapcheck = "" -- Don't check for capital letters at start of sentences
+

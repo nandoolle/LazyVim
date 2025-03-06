@@ -1,0 +1,155 @@
+-- Autocmds are automatically loaded on the VeryLazy event
+-- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+-- Add any additional autocmds here
+local function augroup(name)
+  return vim.api.nvim_create_augroup("autocmd_" .. name, { clear = true })
+end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroup("organise_imports"),
+  pattern = "*.ts",
+  callback = function()
+    vim.lsp.buf.code_action({ apply = true, context = { only = { "source.addMissingImports.ts" }, diagnostics = {} } })
+    vim.lsp.buf.code_action({ apply = true, context = { only = { "source.removeUnused.ts" }, diagnostics = {} } })
+  end,
+})
+
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact" },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = "en_us"
+    
+    -- Enhanced visibility for TS files specifically
+    vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true, sp = "red", cterm = { underline = true }, bold = true })
+    
+    -- Alternative highlighting option that's more visible
+    -- Uncomment the line below if undercurl still doesn't show
+    -- vim.api.nvim_set_hl(0, "SpellBad", { bg = "#661111", fg = "#ffffff", bold = true })
+    
+    -- Make sure spell checking works in TypeScript/TSX comments
+    -- This is important because LSP often skips spell checking in code
+    vim.opt_local.spelloptions = "camel"
+    
+    -- Print confirmation
+    vim.schedule(function()
+      vim.notify("Spell checking enabled for TypeScript file", vim.log.levels.INFO)
+    end)
+  end,
+})
+
+vim.api.nvim_create_user_command("SpellCommentsOnly", function()
+  -- This uses Treesitter to scope spell checking to only comments
+  vim.opt_local.spell = true
+  
+  -- Set the spellang 
+  vim.opt_local.spelllang = "en_us"
+  
+  -- Force visible highlighting
+  vim.api.nvim_set_hl(0, "SpellBad", { bg = "#661111", fg = "#ffffff", bold = true })
+  
+  -- Create syntax matching for comments only
+  vim.cmd([[
+    syntax spell toplevel
+    syntax spell default
+    
+    " For TypeScript/JavaScript-like languages
+    syntax region Comment start="//" end="$" contains=@Spell
+    syntax region Comment start="/\*" end="\*/" contains=@Spell
+    
+    " Make sure strings don't get spell checked
+    syntax region String start=/'/ end=/'/ contains=NONE
+    syntax region String start=/"/ end=/"/ contains=NONE
+    syntax region String start=/`/ end=/`/ contains=NONE
+  ]])
+  
+  vim.notify("Spell checking limited to comments only", vim.log.levels.INFO)
+end, {})
+
+-- Add command to restore normal spell checking behavior
+vim.api.nvim_create_user_command("SpellEverything", function()
+  -- Enable spell checking
+  vim.opt_local.spell = true
+  vim.opt_local.spelllang = "en_us"
+  
+  -- Enable camel case support for code identifiers
+  vim.opt_local.spelloptions = "camel"
+  
+  -- Use a visible but not intrusive highlighting
+  vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true, sp = "red", cterm = { underline = true } })
+  
+  -- Configure spell checking based on file type
+  local filetype = vim.bo.filetype
+  
+  if vim.tbl_contains({ "lua", "python", "javascript", "typescript", "typescriptreact", "javascriptreact", "vue", "svelte", "php", "ruby", "go", "rust", "java", "c", "cpp", "ts" }, filetype) then
+    -- For code files: enable spell checking for strings, comments, and variables
+    vim.cmd([[
+      " Reset syntax spell settings
+      syntax clear
+      syntax spell toplevel
+      syntax spell default
+      
+      " Check spelling in comments
+      syntax match Comment /--.*/ contains=@Spell
+      syntax region Comment start="//" end="$" contains=@Spell
+      syntax region Comment start="/\*" end="\*/" contains=@Spell
+      syntax region Comment start="#" end="$" contains=@Spell
+      
+      " Check spelling in strings
+      syntax region String start=/'/ end=/'/ contains=@Spell
+      syntax region String start=/"/ end=/"/ contains=@Spell
+      syntax region String start=/`/ end=/`/ contains=@Spell
+      
+      " Include identifiers (variables) in spell checking by default
+      syntax match CustomCode /\<\h\w*\>/ contains=@Spell
+      
+    
+     " Exclude reserved words and common programming terms from spell checking
+      syntax keyword CodeKeyword function return local if else elseif end for while do break continue true false nil class const let var import export from require module extends implements interface type namespace new this super static public private protected async await try catch finally throw then passthrough Dto 
+      highlight link CodeKeyword Statement
+
+      " Exclude common library and framework identifiers from spell checking
+      " 1. Common library prefixes (React, Vue, Angular, etc.)
+      syntax match LibraryPrefix /\<\(React\|Vue\|Angular\|Svelte\|Redux\|Vuex\|Axios\|Fetch\|Http\|Express\|Nest\|Nuxt\|Next\|Vite\|Webpack\|Rollup\|Babel\|ESLint\|Prettier\|Jest\|Mocha\|Chai\|Enzyme\|Cypress\|Selenium\|Logger\|Config\|Util\|Lodash\|Ramda\|Underscore\|JQuery\|Moment\|Day\|Date\|Time\|UUID\|Crypto\|Hash\|JWT\|OAuth\|Auth\|User\|Admin\|Router\|Route\|Nav\|Menu\|Tab\|Page\|View\|Component\|Prop\|State\|Store\|Dispatch\|Action\|Reducer\|Effect\|Hook\|Ref\|Memo\|Context\|Provider\|Consumer\|Swagger\)\w*\>/
+      highlight link LibraryPrefix Identifier
+
+      " 1b. Common programming patterns and suffixes
+      syntax match CommonPattern /\w\+\(Dto\|Service\|Controller\|Module\|Factory\|Provider\|Repository\|Entity\|Model\|Schema\|Config\|Utils\|Helper\|Manager\|Handler\|Listener\|Observer\|Builder\|Adapter\|Strategy\|Facade\|Proxy\|Middleware\|Interceptor\|Guard\|Filter\|Pipe\|Resolver\)\>/
+      highlight link CommonPattern Identifier
+
+      " 1c. Special case for Dto which can appear anywhere in identifiers
+      syntax match DtoPattern /\<\w*Dto\w*\>/
+      highlight link DtoPattern Identifier
+
+      " 2. Common framework method patterns
+      syntax match FrameworkMethod /\<\(use[A-Z]\w*\|on[A-Z]\w*\|handle[A-Z]\w*\|render[A-Z]\w*\|create[A-Z]\w*\|get[A-Z]\w*\|set[A-Z]\w*\|fetch[A-Z]\w*\|update[A-Z]\w*\|delete[A-Z]\w*\|remove[A-Z]\w*\|add[A-Z]\w*\|is[A-Z]\w*\|has[A-Z]\w*\|should[A-Z]\w*\|will[A-Z]\w*\|did[A-Z]\w*\|can[A-Z]\w*\|map[A-Z]\w*\|filter[A-Z]\w*\|reduce[A-Z]\w*\|forEach[A-Z]\w*\|find[A-Z]\w*\|push[A-Z]\w*\|pop[A-Z]\w*\|shift[A-Z]\w*\|unshift[A-Z]\w*\|splice[A-Z]\w*\|slice[A-Z]\w*\|includes[A-Z]\w*\|indexOf[A-Z]\w*\|lastIndexOf[A-Z]\w*\|some[A-Z]\w*\|every[A-Z]\w*\|sort[A-Z]\w*\|reverse[A-Z]\w*\|join[A-Z]\w*\|split[A-Z]\w*\|replace[A-Z]\w*\|match[A-Z]\w*\|search[A-Z]\w*\|exec[A-Z]\w*\|test[A-Z]\w*\)\>/
+      highlight link FrameworkMethod Identifier
+
+      " Add decorators (@ patterns) to be excluded from spell checking
+      syntax match Decorator /^[ \t]*@\w\+/ 
+      syntax match Decorator /@[A-Za-z0-9_]\+(\?/ 
+      highlight link Decorator PreProc
+
+      " 3. Common file path patterns for libraries
+      syntax match LibraryPath /\<\(node_modules\|vendor\|bower_components\|packages\|dist\|build\|public\|assets\|libs\|lib\|frameworks\|plugins\|addons\|extensions\)\>/
+      highlight link LibraryPath Directory
+
+      " 4. Common imported library syntax (import {x} from 'library')
+      syntax match ImportedLibrary /from\s\+['"][^'"]\+['"]/
+      syntax match ImportedLibrary /require\s*(\s*['"][^'"]\+['"]/
+      highlight link ImportedLibrary Include
+
+      " 5. Standard namespaces and APIs
+      syntax match StdAPI /\<\(document\|window\|console\|process\|module\|exports\|global\|this\|super\|Object\|Array\|String\|Number\|Boolean\|Function\|Symbol\|Date\|Math\|JSON\|Error\|Promise\|Map\|Set\|WeakMap\|WeakSet\|Proxy\|Reflect\|Intl\|URL\|URLSearchParams\|TextEncoder\|TextDecoder\|Buffer\|EventEmitter\|Readable\|Writable\|Stream\|Request\|Response\|Server\|Client\|Socket\|Connection\|Database\|Transaction\|Query\|Model\|Schema\|Collection\|Document\|Cursor\|Index\|Aggregation\|Pipeline\|Stage\|Operator\|Filter\|Sort\|Group\|Project\|Lookup\|Match\|Unwind\|Skip\|Limit\|@[A-Za-z0-9_]\+\)\w*\>/ contains=NONE
+
+      " Override to make sure our custom code still gets spell checked
+      syntax match CustomCode /\<\h\w*\>/ contains=@Spell containedin=ALL
+    ]])
+    vim.notify("Spell checking enabled for custom code only (comments, strings, and your variables)", vim.log.levels.INFO)
+  else
+    -- For non-code files: enable spell checking everywhere
+    vim.cmd("syntax spell toplevel")
+    vim.notify("Spell checking applied to all text", vim.log.levels.INFO)
+  end
+end, {})
