@@ -26,9 +26,6 @@ vim.api.nvim_create_user_command("SpellEverything", function()
   -- Use a visible but not intrusive highlighting
   vim.api.nvim_set_hl(0, "SpellBad", { undercurl = true, sp = "red", cterm = { underline = true } })
 
-  -- Configure spell checking based on file type
-  local filetype = vim.bo.filetype
-
   -- For code files: enable smart spell checking that excludes framework code
   vim.cmd([[
       " Reset syntax spell settings
