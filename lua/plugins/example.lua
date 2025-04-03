@@ -10,13 +10,13 @@ if true then return {} end
 -- * override the configuration of LazyVim plugins
 return {
   -- add gruvbox
-  { "mistweaverco/retro-theme.nvim" },
+  { "ellisonleao/gruvbox.nvim" },
 
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "retro-theme",
+      colorscheme = "gruvbox",
     },
   },
 
@@ -35,6 +35,10 @@ return {
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-emoji" },
     ---@param opts cmp.ConfigSchema
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+    },
     opts = function(_, opts)
       table.insert(opts.sources, { name = "emoji" })
     end,
@@ -176,7 +180,6 @@ return {
     end,
   },
 
-  -- use mini.starter instead of alpha
   { import = "lazyvim.plugins.extras.ui.mini-starter" },
 
   -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
