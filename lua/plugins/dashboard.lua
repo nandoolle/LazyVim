@@ -6,6 +6,7 @@ return {
         pick = function(cmd, opts)
           return LazyVim.pick(cmd, opts)()
         end,
+
         header = [[
 .------. .------..------. .-. .--.
  ||  _   V   _   ||   _   V  \/  ||
