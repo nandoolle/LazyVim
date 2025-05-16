@@ -1,6 +1,15 @@
 return {
   "folke/snacks.nvim",
   opts = function(_, opts)
+    opts.snacks_explorer = {
+      -- stylua: ignore
+      -- mappings = {
+      --   ["<C-f>"] = { "<cmd>SnacksExplorer<cr>", desc = "Snacks Explorer" },
+      --   ["<C-p>"] = { "<cmd>SnacksExplorer<cr>", desc = "Snacks Explorer" },
+      --   ["<C-e>"] = { "<cmd>SnacksExplorer<cr>", desc = "Snacks Explorer" },
+      --   ["<C-s>"] = { "<cmd>SnacksExplorer<cr>", desc = "Snacks Explorer" },
+      -- },
+    }
     opts.dashboard = {
       preset = {
         pick = function(cmd, opts)
