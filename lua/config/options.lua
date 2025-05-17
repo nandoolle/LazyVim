@@ -15,3 +15,6 @@ vim.opt.spell = true
 vim.opt.spelloptions = "camel" -- Handle camelCase words better
 vim.opt.spellcapcheck = "" -- Don't check for capital letters at start of sentences
 vim.o.mousescroll = "ver:3,hor:0"
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","

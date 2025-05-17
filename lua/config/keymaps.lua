@@ -22,4 +22,5 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "-", "<cmd>Oil<CR>")
 
-vim.keymap.set("n", "<leader>ee", "<cmd>ConjureEval<CR>")
+vim.keymap.set("n", "<localleader>ecr", "<cmd>Cjc 9666<CR>")
+-- vim.keymap.set("n", "<leader>ee", "<cmd>ConjureEval<CR>")

@@ -389,3 +389,11 @@ bitlink
 PTBR
 configs
 orgs
+maplocalleader
+mapleader
+clojure
+ansi
+nrepl
+repl
+baleia
+util
