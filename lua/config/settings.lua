@@ -38,7 +38,7 @@ do
     statuscolumn = "%=%l %s",
     backup = false,
     cursorline = false,
-    relativenumber = false,
+    relativenumber = true,
     swapfile = false,
     wrap = false,
   }
