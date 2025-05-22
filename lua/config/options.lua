@@ -11,6 +11,14 @@ vim.opt.cursorcolumn = true
 vim.opt.spelllang = "en_us"
 vim.opt.spell = true
 
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+vim.opt.incsearch = true
+vim.opt.termguicolors = true
+vim.opt.updatetime = 50
+
 -- Improve spell checking for coding
 vim.opt.spelloptions = "camel" -- Handle camelCase words better
 vim.opt.spellcapcheck = "" -- Don't check for capital letters at start of sentences
