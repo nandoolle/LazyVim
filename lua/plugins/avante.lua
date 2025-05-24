@@ -8,13 +8,12 @@ return {
     provider = "claude",
     claude = {
       endpoint = "https://api.anthropic.com",
-      model = "claude-sonnet-4-20250514",
-      disable_tools = true,
+      model = "claude-3-5-sonnet-20241022",
       temperature = 0,
-      max_tokens = 8192,
+      max_tokens = 4096,
     },
     behaviour = {
-      auto_suggestions = false,
+      auto_suggestions = true,
       minimize_diff = false,
       enable_cursor_planning_mode = true,
       enable_claude_text_editor_tool_mode = true,
