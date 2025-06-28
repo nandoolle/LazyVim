@@ -430,3 +430,11 @@ norelativenumber
 cmp
 desc
 lspconfig
+localleader
+npx
+cond
+pokeapi
+pokemon
+rebase
+conflictstyle
+bullmq
