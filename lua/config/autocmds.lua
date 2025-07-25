@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
---  custom spell check
+-- custom spell check
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   group = augroup("auto_spell"),
   callback = function()
@@ -45,9 +45,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 
     -- For code files: enable smart spell checking that excludes framework code
     vim.cmd([[
-      syntax clear
-      syntax spell toplevel
-      syntax spell default
-      ]])
+     syntax clear
+     syntax spell toplevel
+     syntax spell default
+     ]])
   end,
 })

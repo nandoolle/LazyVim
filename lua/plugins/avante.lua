@@ -5,18 +5,24 @@ return {
   opts = {
     -- add any opts here
     -- for example
-    provider = "claude",
-    claude = {
-      endpoint = "https://api.anthropic.com",
-      model = "claude-3-5-sonnet-20241022",
-      temperature = 0,
-      max_tokens = 4096,
-    },
-    behaviour = {
-      auto_suggestions = true,
-      minimize_diff = false,
-      enable_cursor_planning_mode = true,
-      enable_claude_text_editor_tool_mode = true,
+    auto_suggestions_provider = "claude",
+    providers = {
+      claude = {
+        endpoint = "https://api.anthropic.com",
+        model = "claude-3-5-sonnet-20241022",
+        extra_request_body = {
+          temperature = 0.75,
+          max_tokens = 4096,
+        },
+      },
+      -- claude = {
+      --   endpoint = "https://api.anthropic.com",
+      --   model = "claude-sonnet-4-20250514",
+      --   extra_request_body = {
+      --     temperature = 0.5,
+      --     max_tokens = 4096,
+      --   },
+      -- },
     },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
@@ -24,7 +30,6 @@ return {
   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    "stevearc/dressing.nvim",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
     --- The below dependencies are optional,
@@ -32,6 +37,8 @@ return {
     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
     "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
     "ibhagwan/fzf-lua", -- for file_selector provider fzf
+    "stevearc/dressing.nvim", -- for input provider dressing
+    "folke/snacks.nvim", -- for input provider snacks
     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
     "zbirenbaum/copilot.lua", -- for providers='copilot'
     {

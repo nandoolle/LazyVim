@@ -14,7 +14,7 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
-vim.opt.updatetime = 50
+vim.opt.updatetime = 250
 
 -- Improve spell checking for coding
 vim.opt.spelloptions = "camel" -- Handle camelCase words better
