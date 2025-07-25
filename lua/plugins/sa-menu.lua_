@@ -1,0 +1,10 @@
+return {
+  "nandoolle/sa-menu.nvim",
+  config = function()
+    require("sa-menu").setup({
+      debounce_time = 10,
+
+      enabled = true,
+    })
+  end,
+}
