@@ -51,3 +51,19 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
      ]])
   end,
 })
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    local last = vim.fn.line("$")
+    local line = vim.fn.line(last)
+    if line ~= "" then
+      vim.api.nvim_buf_set_lines(0, last, last, false, { "" })
+    end
+
+    local second_last = vim.fn.line("$") - 1
+    if second_last > 0 and vim.fn.getline(second_last) == "" then
+      vim.api.nvim_buf_set_lines(0, second_last, second_last + 1, false, { "" })
+    end
+  end,
+})
