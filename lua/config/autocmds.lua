@@ -55,15 +55,12 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
-    local last = vim.fn.line("$")
-    local line = vim.fn.line(last)
-    if line ~= "" then
-      vim.api.nvim_buf_set_lines(0, last, last, false, { "" })
-    end
+    -- Get the last line's content
+    local last_line = vim.api.nvim_buf_get_lines(0, -2, -1, false)[1]
 
-    local second_last = vim.fn.line("$") - 1
-    if second_last > 0 and vim.fn.getline(second_last) == "" then
-      vim.api.nvim_buf_set_lines(0, second_last, second_last + 1, false, { "" })
+    -- If last line has content, add an empty line
+    if last_line and last_line ~= "" then
+      vim.api.nvim_buf_set_lines(0, -1, -1, false, { "" })
     end
   end,
 })
