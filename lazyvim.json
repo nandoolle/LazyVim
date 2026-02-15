@@ -1,18 +1,18 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.ai.supermaven",
     "lazyvim.plugins.extras.coding.mini-surround",
     "lazyvim.plugins.extras.coding.yanky",
+    "lazyvim.plugins.extras.editor.mini-files",
     "lazyvim.plugins.extras.editor.outline",
     "lazyvim.plugins.extras.lang.clojure",
+    "lazyvim.plugins.extras.lang.json",
     "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.ocaml",
-    "lazyvim.plugins.extras.util.dot",
-    "lazyvim.plugins.extras.util.mini-hipatterns"
+    "lazyvim.plugins.extras.util.dot"
   ],
   "install_version": 8,
   "news": {
-    "NEWS.md": "10960"
+    "NEWS.md": "11866"
   },
   "version": 8
 }

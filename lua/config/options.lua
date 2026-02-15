@@ -29,11 +29,17 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.clipboard = "unnamedplus"
 vim.o.list = true
-vim.o.listchars = table.concat(
-  { "tab:\226\150\182-", "trail:\226\128\162", "extends:\194\187", "precedes:\194\171", "eol:\194\172" },
-  ","
-)
+vim.o.listchars = table.concat({
+  "tab:\226\150\182-",
+  "trail:\226\128\162",
+  "extends:\194\187",
+  "precedes:\194\171",
+  "eol:\194\172",
+}, ",")
 vim.o.relativenumber = true
 vim.o.mousescroll = "ver:3,hor:0"
+
+-- Use bash treesitter parser for zsh files
+vim.treesitter.language.register("bash", "zsh")
 
 return {}

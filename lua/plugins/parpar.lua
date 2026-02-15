@@ -6,10 +6,10 @@ return {
     require("parpar").setup({
       paredit = {
         keys = {
-          ["<localleader>ll"] = { paredit.api.slurp_backwards, "Slurp backwards" },
-          ["<localleader>hh"] = { paredit.api.barf_backwards, "Barf backwards" },
-          ["<localleader>j"] = { paredit.api.barf_forwards, "Barf forwards" },
-          ["<localleader>k"] = { paredit.api.slurp_forwards, "Slurp forwards" },
+          ["<localleader>kl"] = { paredit.api.slurp_backwards, "Slurp backwards" },
+          ["<localleader>jh"] = { paredit.api.barf_backwards, "Barf backwards" },
+          ["<localleader>jj"] = { paredit.api.barf_forwards, "Barf forwards" },
+          ["<localleader>kk"] = { paredit.api.slurp_forwards, "Slurp forwards" },
         },
       },
     })
