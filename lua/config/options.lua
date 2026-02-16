@@ -17,7 +17,6 @@ vim.o.updatetime = 50
 vim.o.undofile = true
 vim.o.scrolloff = 20
 vim.o.backup = false
-vim.o.fixeol = true
 vim.o.list = true
 vim.o.listchars = table.concat({
   "tab:\226\150\182-",
