@@ -15,5 +15,6 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
-vim.keymap.set("n", "<leader>snn", "<cmd>set norelativenumber<CR>")
-vim.keymap.set("n", "<leader>snr", "<cmd>set relativenumber<CR>")
+vim.keymap.set("n", "<leader>tln", function()
+  vim.wo.relativenumber = not vim.wo.relativenumber
+end, { desc = "Toggle relative numbers" })

@@ -696,3 +696,6 @@ nofile
 buftype
 eol
 eof
+winborder
+wo
+fixeol

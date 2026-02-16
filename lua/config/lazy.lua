@@ -20,7 +20,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.ui.mini-animate" },
     { import = "plugins" },
-    { import = "lazyvim.plugins.extras.lang.ocaml" },
   },
   defaults = {
     lazy = false,
